@@ -27,15 +27,15 @@ type PulsarMeta struct {
 // pairs are used by a record's filter pipeline during a dns query.
 // All values can be a feed id as well, indicating real-time updates of these values.
 // Structure/Precendence of metadata tables:
-//  - Record
-//    - Meta <- lowest precendence in filter
-//    - Region(s)
-//      - Meta <- middle precedence in filter chain
-//      - ...
-//    - Answer(s)
-//      - Meta <- highest precedence in filter chain
-//      - ...
-//    - ...
+//   - Record
+//   - Meta <- lowest precendence in filter
+//   - Region(s)
+//   - Meta <- middle precedence in filter chain
+//   - ...
+//   - Answer(s)
+//   - Meta <- highest precedence in filter chain
+//   - ...
+//   - ...
 type Meta struct {
 	// STATUS
 
@@ -302,13 +302,13 @@ func MetaFromMap(m map[string]interface{}) *Meta {
 					fv.Set(reflect.ValueOf(pulsars))
 				}
 			case "Subdivisions":
-				switch v.(type) {
+				switch v := v.(type) {
 				case string:
 					var subMap map[string]interface{}
-					json.Unmarshal([]byte(v.(string)), &subMap)
+					json.Unmarshal([]byte(v), &subMap)
 					fv.Set(reflect.ValueOf(subMap))
 				case map[string]interface{}:
-					fv.Set(reflect.ValueOf(v.(map[string]interface{})))
+					fv.Set(reflect.ValueOf(v))
 				}
 			case "Note":
 				// If it's a Note, just pass the string without any type of parse.

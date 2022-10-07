@@ -51,9 +51,9 @@ func (s *StatsService) getQPS(path string) (float32, *http.Response, error) {
 	resp, err := s.client.Do(req, &value)
 
 	if err != nil {
-		switch err.(type) {
+		switch err := err.(type) {
 		case *Error:
-			switch err.(*Error).Message {
+			switch err.Message {
 			case "zone not found":
 				return 0, nil, ErrZoneMissing
 			case "record not found":

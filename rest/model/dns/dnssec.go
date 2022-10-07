@@ -34,7 +34,7 @@ type Key struct {
 }
 
 func (d ZoneDNSSEC) String() string {
-	return fmt.Sprintf("%s", d.Zone)
+	return d.Zone
 }
 
 // UnmarshalJSON parses a Key from a list into a struct

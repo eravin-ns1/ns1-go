@@ -53,9 +53,9 @@ func (s *ZonesService) Get(zone string) (*dns.Zone, *http.Response, error) {
 		resp, err = s.client.Do(req, &z)
 	}
 	if err != nil {
-		switch err.(type) {
+		switch err := err.(type) {
 		case *Error:
-			if err.(*Error).Message == "zone not found" {
+			if err.Message == "zone not found" {
 				return nil, resp, ErrZoneMissing
 			}
 		}
@@ -79,11 +79,11 @@ func (s *ZonesService) Create(z *dns.Zone) (*http.Response, error) {
 	// Update zones fields with data from api(ensure consistent)
 	resp, err := s.client.Do(req, &z)
 	if err != nil {
-		switch err.(type) {
+		switch err := err.(type) {
 		case *Error:
-			if err.(*Error).Message == "zone already exists" ||
-				err.(*Error).Message == "invalid: FQDN already exists" ||
-				err.(*Error).Message == "invalid: FQDN already exists in the view" {
+			if err.Message == "zone already exists" ||
+				err.Message == "invalid: FQDN already exists" ||
+				err.Message == "invalid: FQDN already exists in the view" {
 				return resp, ErrZoneExists
 			}
 		}
@@ -107,9 +107,9 @@ func (s *ZonesService) Update(z *dns.Zone) (*http.Response, error) {
 	// Update zones fields with data from api(ensure consistent)
 	resp, err := s.client.Do(req, &z)
 	if err != nil {
-		switch err.(type) {
+		switch err := err.(type) {
 		case *Error:
-			if err.(*Error).Message == "zone not found" {
+			if err.Message == "zone not found" {
 				return resp, ErrZoneMissing
 			}
 		}
@@ -132,9 +132,9 @@ func (s *ZonesService) Delete(zone string) (*http.Response, error) {
 
 	resp, err := s.client.Do(req, nil)
 	if err != nil {
-		switch err.(type) {
+		switch err := err.(type) {
 		case *Error:
-			if err.(*Error).Message == "zone not found" {
+			if err.Message == "zone not found" {
 				return resp, ErrZoneMissing
 			}
 		}

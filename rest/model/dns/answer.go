@@ -54,7 +54,7 @@ func (a *Answer) UnmarshalJSON(data []byte) error {
 			rdata = append(rdata, strconv.Itoa(int(v)))
 		default:
 			return fmt.Errorf(
-				"Could not unmarshal Rdata value %[1]v (type %[1]T) as type string", v,
+				"could not unmarshal Rdata value %[1]v (type %[1]T) as type string", v,
 			)
 		}
 	}

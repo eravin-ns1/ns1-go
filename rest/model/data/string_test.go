@@ -1,7 +1,6 @@
 package data
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -19,6 +18,6 @@ func TestToCamel(t *testing.T) {
 	s = ToCamel(s)
 	expected := "ThisIsAnAwesomeStringToTestCamelCaseItShouldCoverAllTheCasesEvenOnesWithDashes"
 	if s != expected {
-		t.Fatal(fmt.Sprintf("s should equal '%s', but was '%s'", expected, s))
+		t.Fatalf("s should equal '%s', but was '%s'", expected, s)
 	}
 }

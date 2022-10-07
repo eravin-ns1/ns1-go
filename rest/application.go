@@ -43,9 +43,9 @@ func (s *ApplicationsService) Get(id string) (*pulsar.Application, *http.Respons
 	var a pulsar.Application
 	resp, err := s.client.Do(req, &a)
 	if err != nil {
-		switch err.(type) {
+		switch err := err.(type) {
 		case *Error:
-			if err.(*Error).Resp.StatusCode == 404 {
+			if err.Resp.StatusCode == 404 {
 				return nil, resp, ErrApplicationMissing
 			}
 		}
@@ -81,9 +81,9 @@ func (s *ApplicationsService) Update(a *pulsar.Application) (*http.Response, err
 
 	resp, err := s.client.Do(req, &a)
 	if err != nil {
-		switch err.(type) {
+		switch err := err.(type) {
 		case *Error:
-			if err.(*Error).Resp.StatusCode == 404 {
+			if err.Resp.StatusCode == 404 {
 				return resp, ErrApplicationMissing
 			}
 		}
@@ -106,9 +106,9 @@ func (s *ApplicationsService) Delete(id string) (*http.Response, error) {
 
 	resp, err := s.client.Do(req, nil)
 	if err != nil {
-		switch err.(type) {
+		switch err := err.(type) {
 		case *Error:
-			if err.(*Error).Resp.StatusCode == 404 {
+			if err.Resp.StatusCode == 404 {
 				return resp, ErrApplicationMissing
 			}
 		}

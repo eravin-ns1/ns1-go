@@ -26,12 +26,12 @@ func (s *DNSSECService) Get(zone string) (*dns.ZoneDNSSEC, *http.Response, error
 	resp, err := s.client.Do(req, &d)
 
 	if err != nil {
-		switch err.(type) {
+		switch err := err.(type) {
 		case *Error:
-			if err.(*Error).Message == "zone not found" {
+			if err.Message == "zone not found" {
 				return nil, resp, ErrZoneMissing
 			}
-			if err.(*Error).Message == "DNSSEC is not enabled on the zone" {
+			if err.Message == "DNSSEC is not enabled on the zone" {
 				return nil, resp, ErrDNSECNotEnabled
 			}
 		}

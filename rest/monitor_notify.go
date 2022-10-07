@@ -43,9 +43,9 @@ func (s *NotificationsService) Get(listID string) (*monitor.NotifyList, *http.Re
 	var nl monitor.NotifyList
 	resp, err := s.client.Do(req, &nl)
 	if err != nil {
-		switch err.(type) {
+		switch err := err.(type) {
 		case *Error:
-			if err.(*Error).Message == "unknown notification list" {
+			if err.Message == "unknown notification list" {
 				return nil, resp, ErrListMissing
 			}
 		}
@@ -67,9 +67,9 @@ func (s *NotificationsService) Create(nl *monitor.NotifyList) (*http.Response, e
 	// Update notify list fields with data from api(ensure consistent)
 	resp, err := s.client.Do(req, &nl)
 	if err != nil {
-		switch err.(type) {
+		switch err := err.(type) {
 		case *Error:
-			if err.(*Error).Message == fmt.Sprintf("notification list with name \"%s\" exists", nl.Name) {
+			if err.Message == fmt.Sprintf("notification list with name \"%s\" exists", nl.Name) {
 				return resp, ErrListExists
 			}
 		}
