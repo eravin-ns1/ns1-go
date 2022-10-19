@@ -104,6 +104,7 @@ type ZoneSecondary struct {
 
 	OtherIPs   []string `json:"other_ips,omitempty"`
 	OtherPorts []int    `json:"other_ports,omitempty"`
+	OtherNetworks []int    `json:"other_networks,omitempty"`
 
 	TSIG *TSIG `json:"tsig,omitempty"`
 }
